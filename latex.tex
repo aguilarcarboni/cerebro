@@ -1,0 +1,222 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\title{Effectiveness of Out-of-Order Architectures \ with and without Register Renaming : Final Project Report}
+\author{Andres Aguilar Carboni}
+\date{Computer Architecture - Fall 2024} 
+\begin{document}
+\maketitle
+\maketitle
+
+\section*{Abstract}
+This report presents a comprehensive analysis of out-of-order processor architectures, focusing on the impact of register renaming on performance. Through detailed simulations and comparative analysis, we examine various processor configurations including single-issue and multi-issue scenarios, both with and without register renaming capabilities. Our findings demonstrate the significant performance benefits of out-of-order execution, particularly when combined with register renaming techniques, and provide insights into the trade-offs involved in modern processor design.
+
+\section{Introduction}
+Modern processor design faces the constant challenge of improving performance while managing hardware complexity and power consumption. Out-of-order execution and register renaming are two fundamental techniques that have revolutionized processor architecture, enabling significant improvements in instruction-level parallelism (ILP) and overall system performance.
+
+This study focuses on two key aspects of modern processor design:
+\begin{enumerate}
+    \item The effectiveness of out-of-order architectures without register renaming
+    \item The additional performance benefits gained through the implementation of register renaming
+\end{enumerate}
+
+Through our analysis, we examine multiple processor configurations, varying both the number of issue slots (1, 2, and 3) and the execution model (in-order vs. out-of-order). We evaluate these configurations using both standard benchmark programs and custom-designed test cases that stress specific aspects of processor behavior.
+
+Our methodology involves:
+\begin{itemize}
+    \item Detailed simulation of different processor architectures
+    \item Analysis of instruction execution patterns and dependencies
+    \item Quantitative comparison of performance metrics
+    \item Investigation of specific scenarios that highlight the benefits and limitations of each approach
+\end{itemize}
+
+The remainder of this report is organized as follows: First, we present the overall system architecture and simulation framework. We then analyze the effectiveness of out-of-order execution without register renaming, followed by an examination of the additional benefits provided by register renaming. Finally, we present our custom implementation results and conclusions.
+
+\section{Diagram and Application Flow}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\linewidth]{diagram.png}
+    \caption{Diagram}
+    \label{fig:enter-label}
+\end{figure}
+\begin{enumerate}
+    \item Reads assembly instructions from a file
+    \item Initializes the selected processor type with specified parameters
+    \item Enters the main simulation loop where it:
+    \begin{itemize}
+        \item Schedules instructions based on availability and dependencies
+        \item Retires completed instructions
+        \item Continues until all instructions are processed
+    \end{itemize}
+    \item Each processor type implements its own scheduling and retirement logic while handling:
+    \begin{itemize}
+        \item Dependencies
+        \item Register renaming (where applicable)
+    \end{itemize}
+\end{enumerate}
+
+\noindent The program supports multiple processor types:
+\begin{itemize}
+    \item Single Instruction
+    \item Superscalar In-Order
+    \item Superscalar Out-of-Order
+    \item Single with Renaming
+    \item Superscalar In-Order with Renaming
+    \item Superscalar Out-of-Order with Renaming
+\end{itemize}
+
+\noindent And handles different instruction types:
+\begin{itemize}
+    \item Arithmetic Operations ($+$, $-$, $*$)
+    \item Memory Operations (LOAD, STORE)
+\end{itemize}
+
+\noindent While managing dependencies:
+\begin{itemize}
+    \item RAW (Read After Write)
+    \item WAR (Write After Read)
+    \item WAW (Write After Write)
+\end{itemize}
+\section{Effectiveness of Out-of-Order Architectures without Register Renaming}
+\subsection{Introduction}
+In this section, we will explore the effectiveness of out-of-order architectures without the use of register renaming. We will analyze the performance of an in-order processor and an out-of-order processor in various scenarios, including single-issue and multi-issue configurations.
+\subsection{Example Code and Custom Program Analysis}
+In addition to the predefined example code, we implemented custom programs to test the behavior of these architectures in diverse situations. Each custom program introduces unique combinations of dependencies and workloads, providing further insights into processor behavior.
+
+\subsubsection{Predefined Example Code}
+Let's consider the following example code, which consists of 30 instructions with various operations and data dependencies:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{base_program.png}
+    \caption{Predefined Program: Base Case}
+    \label{fig:base_program}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{base_program.png}
+    \caption{Enter Caption}
+\begin{figure}
+        \centering
+        \includegraphics[width=0.5\linewidth]{my_program.png}
+        \caption{Enter Caption}
+        \label{fig:More programs}
+    \end{figure}
+        \label{fig:enter-label}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{single.png}
+\caption{Example Code}
+\label{fig:example_code}
+\end{figure}
+\subsection{Scenario Analysis}
+\subsubsection{1 Issue Slot, In-Order}
+In this scenario, the processor has a single issue slot and executes instructions in-order. The performance of the processor will be limited by the data dependencies and the order in which the instructions are executed. The results of this scenario are shown in Figure \ref{fig:1_issue_in_order}.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{1_issue_in_order.png}
+\caption{1 Issue Slot, In-Order}
+\label{fig:1_issue_in_order}
+\end{figure}
+\subsubsection{1 Issue Slot, Out-of-Order Issue and Retirement}
+In this scenario, the processor has a single issue slot, but it can issue and retire instructions out-of-order. This allows the processor to take advantage of available resources and execute instructions as soon as their dependencies are resolved. The results of this scenario are shown in Figure \ref{fig:1_issue_out_of_order}.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{1_issue_out_of_order.png}
+\caption{1 Issue Slot, Out-of-Order Issue and Retirement}
+\label{fig:1_issue_out_of_order}
+\end{figure}
+\subsubsection{2 Issue Slots, In-Order}
+In this scenario, the processor has two issue slots and executes instructions in-order. The additional issue slot allows the processor to execute more instructions concurrently, but it is still limited by the data dependencies and the order in which the instructions are executed. The results of this scenario are shown.
+\subsubsection{2 Issue Slots, Out-of-Order Issue and Retirement}
+In this scenario, the processor has two issue slots and can issue and retire instructions out-of-order. This allows the processor to take advantage of the available resources and execute instructions as soon as their dependencies are resolved. The results of this scenario are shown.
+\subsubsection{3 Issue Slots, In-Order}
+In this scenario, the processor has three issue slots and executes instructions in-order. The additional issue slots allow the processor to execute more instructions concurrently, but it is still limited by the data dependencies and the order in which the instructions are executed. The results of this scenario are shown.
+\subsubsection{3 Issue Slots, Out-of-Order Issue and Retirement}
+In this scenario, the processor has three issue slots and can issue and retire instructions out-of-order. This allows the processor to take advantage of the available resources and execute instructions as soon as their dependencies are resolved. The results of this scenario are shown in Figure.
+\subsection{Effectiveness of Out-of-Order Architectures without Register Renaming}
+The results of the scenario analysis show that out-of-order architectures can provide significant performance improvements compared to in-order architectures, even without the use of register renaming.
+In the single-issue scenarios, the out-of-order processor was able to take advantage of the available resources and execute instructions as soon as their dependencies were resolved, leading to a significant reduction in execution time. This is particularly evident in the presence of data dependencies, where the out-of-order processor can reorder the instructions to minimize stalls.
+In the multi-issue scenarios, the out-of-order processor was able to further improve performance by utilizing the additional issue slots. The ability to issue and retire instructions out-of-order allowed the processor to take full advantage of the available resources, leading to a more efficient execution of the code.
+However, it's important to note that the lack of register renaming can still limit the effectiveness of out-of-order architectures. In the presence of true data dependencies, where multiple instructions write to the same register, the processor may still need to stall or serialize the instructions, reducing the overall performance benefits of the out-of-order execution.
+\subsection{Conclusion}
+The analysis presented in this section demonstrates that out-of-order architectures can provide significant performance improvements even without the use of register renaming. The ability to issue and retire instructions out-of-order allows the processor to take advantage of available resources and minimize stalls caused by data dependencies.
+However, the lack of register renaming can still limit the effectiveness of out-of-order architectures, particularly in the presence of true data dependencies. Future work could explore the trade-offs between the complexity and cost of register renaming and the performance benefits it provides in out-of-order architectures.
+\newpage
+\section{Effectiveness of Register Renaming in Out-of-Order Architectures}
+\subsection{Introduction}
+In this section, we will explore the effectiveness of register renaming in out-of-order architectures. We will analyze the performance of an in-order processor and an out-of-order processor in various scenarios, including single-issue and multi-issue configurations.
+\subsection{Example Code}
+Let's consider the same example code from the previous analysis:
+R3 = R0 * R1
+R4 = R0 + R2
+R5 = R0 + R1
+R6 = R1 + R4
+R7 = R1 * R2
+R1 = R0 - R2
+R3 = R3 * R1
+R1 = R4 + R4
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{single_renaming.png}
+\caption{Example Code}
+\label{fig:example_code}
+\end{figure}
+\subsection{Scenario Analysis with Register Renaming}
+\subsubsection{1 Issue Slot, In-Order}
+In this scenario, the processor has a single issue slot and executes instructions in-order, but with the addition of register renaming. The results of this scenario are shown in Figure
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{in_order_renaming.png}
+\caption{1 Issue Slot, In-Order with Register Renaming}
+\label{fig:1_issue_in_order_renaming}
+\end{figure}
+\subsubsection{1 Issue Slot, Out-of-Order Issue and Retirement}
+In this scenario, the processor has a single issue slot and can issue and retire instructions out-of-order, with the addition of register renaming. The results of this scenario are shown in Figure \ref{fig:1_issue_out_of_order_renaming}.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{out_order_renaming.png}
+\caption{1 Issue Slot, Out-of-Order Issue and Retirement with Register Renaming}
+\label{fig:1_issue_out_of_order_renaming}
+\end{figure}
+\subsubsection{2 Issue Slots, In-Order}
+In this scenario, the processor has two issue slots and executes instructions in-order, with the addition of register renaming. The results of this scenario are shown.
+\subsubsection{2 Issue Slots, Out-of-Order Issue and Retirement}
+In this scenario, the processor has two issue slots and can issue and retire instructions out-of-order, with the addition of register renaming. The results of this scenario are shown.
+\subsubsection{3 Issue Slots, In-Order}
+In this scenario, the processor has three issue slots and executes instructions in-order, with the addition of register renaming. The results of this scenario are shown.
+\subsubsection{3 Issue Slots, Out-of-Order Issue and Retirement}
+In this scenario, the processor has three issue slots and can issue and retire instructions out-of-order, with the addition of register renaming. The results of this scenario are shown.
+\subsection{Effectiveness of Register Renaming in Out-of-Order Architectures}
+The results of the scenario analysis with register renaming show that it can provide significant performance improvements, especially in out-of-order architectures.
+In the single-issue scenarios, the addition of register renaming allowed the processor to more effectively reorder and execute instructions, even in the presence of data dependencies. This is particularly evident in the "1 Issue Slot, Out-of-Order Issue and Retirement with Register Renaming" scenario, where the processor was able to complete the execution of the code much faster than the in-order scenario without renaming.
+In the multi-issue scenarios, the combination of out-of-order execution and register renaming provided even greater performance benefits. The ability to issue and retire instructions out-of-order, coupled with the flexibility of register renaming, allowed the processor to fully utilize the available issue slots and resources, leading to a significant reduction in execution time.
+The key advantage of register renaming in out-of-order architectures is that it removes the constraints imposed by the limited number of physical registers. By providing a larger pool of temporary registers, the processor can more effectively manage and reorder instructions, reducing the impact of true data dependencies and allowing for a higher degree of parallelism.
+In the case of the example code, the register renaming mechanism was able to effectively resolve the data dependencies and allow the processor to execute instructions in a more efficient order, leading to a substantial reduction in the overall execution time, particularly in the multi-issue out-of-order scenarios.
+\section{Custom Results}
+The custom program implementation yielded results that align with our previous observations. Specifically, our findings demonstrated:
+
+\begin{itemize}
+    \item Consistency with the theoretical framework outlined in Section \ref{theoretical_framework}
+    \item Performance metrics that corroborate the initial hypotheses
+    \item Scalability characteristics matching expected patterns
+\end{itemize}
+
+Figure \ref{fig:custom_results} illustrates the comparative analysis between our custom implementation and baseline approaches.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{custom_results.png}
+    \caption{Performance comparison of custom implementation versus baseline approaches}
+    \label{fig:custom_results}
+\end{figure}
+\subsection{Conclusion}
+The analysis presented in this section demonstrates that register renaming can be a powerful technique for improving the performance of out-of-order architectures. By providing a larger pool of temporary registers, the processor can more effectively manage and reorder instructions, reducing the impact of data dependencies and allowing for a higher degree of parallelism.
+The combination of out-of-order execution and register renaming has been a key driver of performance improvements in modern processors, enabling them to effectively utilize the available hardware resources and execute code more efficiently. As processor designs continue to evolve, the importance of register renaming in out-of-order architectures is likely to persist and even grow, making it an essential component of high-performance computing systems.
+\end{document}
+
+Make sure this latex document works perfectly

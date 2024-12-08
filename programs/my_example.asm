@@ -1,0 +1,33 @@
+R4 = R1 * R2
+R1 = LOAD
+R5 = R3 + R0
+R2 = R4 - R1
+R1 = STORE
+R6 = R2 * R5
+R3 = LOAD
+R7 = R6 + R4
+R2 = R1 * R3
+R1 = STORE
+R4 = R2 + R5
+R5 = LOAD
+R3 = R7 - R2
+R1 = R4 * R6
+R2 = STORE
+R6 = R3 + R5
+R4 = R1 - R0
+R1 = LOAD
+R7 = R4 * R2
+R3 = R5 + R6
+R2 = STORE
+R5 = R1 - R4
+R1 = LOAD
+R4 = R2 * R3
+R6 = R5 + R7
+R2 = STORE
+R3 = R1 - R6
+R5 = R4 * R2
+R1 = STORE
+R7 = R3 + R5
+
+
+
