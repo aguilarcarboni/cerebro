@@ -5,7 +5,7 @@
 ### Description
 Multi-issue processor instruction scheduler simulator that implements various scheduling algorithms to optimize instruction throughput. The simulator provides:
 
-### Running the program
+### Compiling and Running
 Clone the repository at:
 ```bash
 git clone https://github.com/aguilarcarboni/cerebro.git
@@ -33,6 +33,6 @@ For debugging and testing, you can run:
 ```
 
 ### Results 
-Scored a 85% on the project.
+- Scored a 85% on the project.
 
 ### created by [@aguilarcarboni](https://github.com/aguilarcarboni/)
