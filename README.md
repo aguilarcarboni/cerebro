@@ -33,6 +33,6 @@ For debugging and testing, you can run:
 ```
 
 ### Results 
-- Scored a 85% on the project.
+- Scored a 85% in the project.
 
 ### created by [@aguilarcarboni](https://github.com/aguilarcarboni/)
